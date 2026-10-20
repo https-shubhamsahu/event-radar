@@ -6,6 +6,10 @@ Free, in-person tech events in Mumbai (AI, crypto, startups), pulled from Luma's
 - **WhatsApp:** the green button opens WhatsApp with this week's digest written out. Pick your group and tap send.
 - **Registering:** always on Luma, by you. Luma remembers your answers (company, LinkedIn, GitHub, X), so most forms are already filled after your first one.
 
+## Staying on
+
+GitHub turns off scheduled workflows after 60 days without repo activity. The `keepalive` job re-enables the daily workflow on every run, and if the repo has had no commits for 45 days it also commits a timestamp to `.keepalive`.
+
 ## Run locally
 
 ```bash
