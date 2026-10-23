@@ -226,6 +226,7 @@ h2 a{color:inherit;text-decoration:none}
 .empty{color:var(--muted);text-align:center;padding:40px 0}
 footer{color:var(--muted);font-size:12.5px;margin-top:32px}
 </style>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cc6413a12f3d4cb29e824cf64f3d7f43"}'></script>
 </head>
 <body>
 <main>
