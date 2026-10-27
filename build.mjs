@@ -227,6 +227,8 @@ h2 a{color:inherit;text-decoration:none}
 footer{color:var(--muted);font-size:12.5px;margin-top:32px}
 </style>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cc6413a12f3d4cb29e824cf64f3d7f43"}'></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R10BYGZFYW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-R10BYGZFYW',location.search.indexOf('ga_debug=1')>-1?{debug_mode:true}:{});document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a.wa');if(a)gtag('event','whatsapp_share');});</script>
 </head>
 <body>
 <main>
@@ -246,7 +248,7 @@ footer{color:var(--muted);font-size:12.5px;margin-top:32px}
 ${events.map(card).join("\n") || '<p class="empty">No events right now.</p>'}
 </section>
 <p class="empty" id="none" hidden>Nothing matches this filter.</p>
-<footer>Listings come from Luma's public Discover feed. Register and submit on Luma yourself.</footer>
+<footer>Listings come from Luma's public Discover feed. Register and submit on Luma yourself. <a href="/privacy/">Privacy</a></footer>
 </main>
 <script>
 const chips=[...document.querySelectorAll('.chip')],cards=[...document.querySelectorAll('.card')];
