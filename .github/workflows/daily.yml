@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: 22
       - run: node build.mjs
+        env:
+          WA_CHANNEL_URL: ${{ vars.WA_CHANNEL_URL }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
