@@ -135,6 +135,12 @@ async function main() {
   events.sort((a, b) => b.sponsored - a.sponsored);
 
   const builtAt = new Date().toISOString();
+  // First time each event was listed here: the honest "on sale from" date for Google's offers.validFrom.
+  // docs/ is not committed, so CI reads the previous run from the live site.
+  const prevRun = await fetch(new URL("events.json", SITE_URL), { signal: AbortSignal.timeout(15000) })
+    .then((r) => (r.ok ? r.json() : { events: [] })).catch(() => ({ events: [] }));
+  const seen = new Map(prevRun.events.map((e) => [e.id, e.firstSeen || prevRun.builtAt]));
+  for (const e of events) e.firstSeen = seen.get(e.id) || builtAt;
   await mkdir("docs", { recursive: true });
   await writeFile("docs/events.json", JSON.stringify({ builtAt, events }, null, 2));
   const digest = buildDigest(events);
@@ -240,8 +246,10 @@ function jsonLd(events) {
     ...(e.cover ? { image: [e.cover] } : {}),
     ...(e.summary ? { description: e.summary } : {}),
     url: e.url,
-    offers: { "@type": "Offer", price: 0, priceCurrency: "INR", url: e.url, availability: e.full ? "https://schema.org/SoldOut" : "https://schema.org/InStock" },
+    offers: { "@type": "Offer", price: 0, priceCurrency: "INR", url: e.url, validFrom: e.firstSeen, availability: e.full ? "https://schema.org/SoldOut" : "https://schema.org/InStock" },
     ...(e.hosts.length ? { organizer: { "@type": "Organization", name: e.hosts.join(", "), url: e.url } } : {}),
+    // Luma lists hosts, not speakers; at these meetups the hosts run the stage, so they stand in as performer.
+    ...(e.hosts.length ? { performer: e.hosts.map((name) => ({ "@type": "Organization", name })) } : {}),
   }));
   return JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c");
 }
